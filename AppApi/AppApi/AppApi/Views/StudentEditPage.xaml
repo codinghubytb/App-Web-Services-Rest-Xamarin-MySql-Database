@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:AppApi.ViewModels" x:DataType="viewmodels:StudentEditViewModel"
+             x:Class="AppApi.Views.StudentEditPage">
+    
+    <StackLayout Padding="15">
+        <Label Text="EDIT STUDENT" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="25" TextColor="#555" FontAttributes="Bold,Italic" TextDecorations="Underline"/>
+
+        <Frame VerticalOptions="CenterAndExpand">
+            <StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                    <Label Text="Name Student : " FontSize="Medium" Margin="0" HorizontalTextAlignment="Center" VerticalOptions="Center" />
+                    <Entry Text="{Binding StudentName, Mode=TwoWay}" MaxLength="14" FontSize="Medium" Placeholder="Name Exercise"  TextTransform="Uppercase" HorizontalOptions="FillAndExpand"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                    <Label Text="Date Modified:  " FontSize="Medium" Margin="0" HorizontalTextAlignment="Center" VerticalOptions="Center"/>
+                    <Entry Text="{Binding StudentModified, Mode=TwoWay}" IsReadOnly="True" FontSize="Small" TextColor="Gray" Margin="0"  HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                    <Label Text="Age Student : " FontSize="Medium" Margin="0" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                    <Entry Text="{Binding StudentAge, Mode=TwoWay}" Keyboard="Numeric"  FontSize="Medium" Margin="0"  HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+                    <Label Text="Chatty :" FontSize="Medium"  Margin="0" VerticalOptions="CenterAndExpand" />
+                    <CheckBox  IsChecked="{Binding StudentChatty, Mode=TwoWay}" Color="Black" />
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+        
+        <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
+            <Button Text="Cancel" Command="{Binding CancelCommand}" BackgroundColor="OrangeRed" TextColor="White" HorizontalOptions="FillAndExpand" />
+            <Button Text="Save" Command="{Binding SaveCommand}" BackgroundColor="#5be9b3" TextColor="White" HorizontalOptions="FillAndExpand" />
+        </StackLayout>
+    </StackLayout>
+    
+</ContentPage>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:AppApi.ViewModels" x:DataType="viewmodels:ClassroomCreateViewModel"
+             x:Class="AppApi.Views.ClassroomCreatePage"
+             Shell.NavBarIsVisible="False">
+
+    <StackLayout Padding="15">
+        <Label Text="NEW CLASSROOM" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="25" TextColor="#555" TextDecorations="Underline" FontAttributes="Bold,Italic"/>
+        <Frame VerticalOptions="CenterAndExpand">
+            <StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Name Class :" FontSize="Medium" Margin="0" HorizontalTextAlignment="Center" VerticalOptions="Center" />
+                    <Entry Text="{Binding ClassroomName, Mode=TwoWay}" MaxLength="14" FontSize="Medium" Placeholder="Name Exercise"  TextTransform="Uppercase" HorizontalOptions="FillAndExpand"/>
+                </StackLayout>
+                <Frame BackgroundColor="Transparent" />
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Date Created :" FontSize="Medium" Margin="0" HorizontalTextAlignment="Center" VerticalOptions="Center"/>
+                    <Entry Text="{Binding ClassroomCreated, Mode=TwoWay}" IsReadOnly="True" FontSize="Medium" TextColor="Gray" Margin="0"  HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+            </StackLayout> 
+        </Frame>
+        
+        <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
+            <Button Text="Cancel" Command="{Binding CancelCommand}" BackgroundColor="OrangeRed" TextColor="White" HorizontalOptions="FillAndExpand" />
+            <Button Text="Save" Command="{Binding SaveCommand}" BackgroundColor="#5be9b3" TextColor="White" HorizontalOptions="FillAndExpand" />
+        </StackLayout>
+    </StackLayout>
+    
+</ContentPage>

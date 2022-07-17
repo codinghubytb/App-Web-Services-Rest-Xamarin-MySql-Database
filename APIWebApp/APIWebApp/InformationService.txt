@@ -1,0 +1,70 @@
+﻿************************************
+			MYSQL
+
+Package Nuggets :
+
+-MySql.Data
+-Newtonsoft.Json
+
+
+file => appsettings.json add:
+
+"ConnectionStrings": {
+    "MySqlDatabase": "Data Source={DATA SOURCE}; Initial Catalog={NAME DATABASE};User Id={ID};",
+	}
+
+
+Exemple request command :
+
+string query = @"";
+DataTable table = new DataTable();
+string sqlDataSource = _configuration.GetConnectionString("MySqlDatabase");
+MySqlDataReader sqlDataReader;
+using (MySqlConnection MyCon = new MySqlConnection(sqlDataSource))
+{
+    MyCon.Open();
+    using (MySqlCommand myCommand = new MySqlCommand(query, MyCon))
+    {
+        myCommand.Parameters.AddWithValue("@id", id);
+        sqlDataReader = myCommand.ExecuteReader();
+        table.Load(sqlDataReader);
+        sqlDataReader.Close();
+        MyCon.Close();
+    }
+}
+
+
+************************************
+			SqlServer
+
+Package Nuggets:
+
+-System.Data.SqlClient
+-Newtonsoft.Json
+
+
+file => appsettings.json add:
+
+"ConnectionStrings": {
+    "SqlServerDatabase": "Data Source={DATA SOURCE}; Initial Catalog={NAME DATABASE};User Id={ID};password={PASSWORD};Convert Zero Datetime=True;Allow Zero Datetime=True"
+  }
+
+
+Exemple request command :
+
+string query = @"";
+DataTable table = new DataTable();
+string sqlDataSource = _configuration.GetConnectionString("SqlServerDatabase");
+SqlDataReader sqlDataReader;
+using (SqlConnection MyCon = new SqlConnection(sqlDataSource))
+{
+    MyCon.Open();
+    using (SqlCommand myCommand = new SqlCommand(query, MyCon))
+    {
+        myCommand.Parameters.AddWithValue("@id", id);
+        sqlDataReader = myCommand.ExecuteReader();
+        table.Load(sqlDataReader);
+        sqlDataReader.Close();
+        MyCon.Close();
+    }
+}

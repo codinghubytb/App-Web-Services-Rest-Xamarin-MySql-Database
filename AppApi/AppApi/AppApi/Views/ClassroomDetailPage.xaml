@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:AppApi.ViewModels"  
+             xmlns:model="clr-namespace:AppApi.Models" x:DataType="local:ClassroomDetailViewModel"
+             x:Class="AppApi.Views.ClassroomDetailPage"
+             BackgroundColor="#0adffd"
+             Shell.NavBarIsVisible="False"
+             Shell.PresentationMode="ModalAnimated">
+    <StackLayout Padding="20">
+
+        <Frame BackgroundColor="Transparent" />
+        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+            <Label Text="Class of " TextColor="Black" FontSize="30" FontAttributes="Italic"/>
+            <Label Text="{Binding ClassroomTitle}" TextColor="Black" FontSize="30" FontAttributes="Italic" />
+        </StackLayout>
+
+        <RefreshView Command="{Binding LoadDataCommand}" x:DataType="local:ClassroomDetailViewModel" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Margin="0,30,0,20">
+            <StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+
+                    <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                        <Label Text="List Of Student !" HorizontalTextAlignment="Center" />
+                        <Label Text="(" HorizontalTextAlignment="Center" />
+                        <Label Text="{Binding NbPersonList}" HorizontalTextAlignment="Center" />
+                        <Label Text=")" HorizontalTextAlignment="Center" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                        <Label Text="page :" HorizontalTextAlignment="Center" />
+                        <Label Text="{Binding Page}" HorizontalTextAlignment="Center" />
+                        <Label Text="/" HorizontalTextAlignment="Center" />
+                        <Label Text="{Binding NbPage}" HorizontalTextAlignment="Center" />
+                    </StackLayout>
+                </StackLayout>
+
+                <Button Text="New Student 👉" Command="{Binding CreateStudentCommand}" FontSize="Small" BackgroundColor="Gray" TextColor="White" CornerRadius="10" HorizontalOptions="FillAndExpand"/>
+                <CollectionView x:Name="ItemsListView"
+                ItemsSource="{Binding DataStudent}"
+                SelectionMode="None" VerticalScrollBarVisibility="Always">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate >
+                            <StackLayout x:DataType="model:Student">
+                                <Frame CornerRadius="5" Padding="10" BackgroundColor="Transparent">
+
+                                    <Frame.Background>
+                                        <LinearGradientBrush EndPoint="0.8,3">
+                                            <GradientStop Color="White" Offset="0"/>
+                                            <GradientStop Color="White" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Frame.Background>
+
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Image Source="user.png" WidthRequest="80" />
+                                        <StackLayout VerticalOptions="CenterAndExpand">
+
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="{Binding StudentName}" TextColor="Black" FontSize="Large"/>
+                                            </StackLayout>
+
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Age :" FontSize="Small"/>
+                                                <Label Text="{Binding StudentAge}" FontSize="Small"/>
+                                            </StackLayout>
+
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Chatty student:" FontSize="Small"/>
+                                                <Label Text="{Binding StudentChatty}" FontSize="Small"/>
+                                            </StackLayout>
+
+                                        </StackLayout>
+                                        <Image Source="arrow_right.png" BackgroundColor="Transparent" WidthRequest="50" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand"/>
+                                    </StackLayout>
+
+                                </Frame>
+
+                                <Frame BackgroundColor="Transparent" Padding="3"/>
+
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                    NumberOfTapsRequired="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:ClassroomDetailViewModel}}, Path=StudentTapped}"		
+                                    CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </RefreshView>
+
+
+        <Button Text="See more" Command="{Binding SeeMoreCommand}" IsVisible="{Binding SeeMoreVisible}" FontSize="Small" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" />
+
+        <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
+            <Button Text="OK" BackgroundColor="#00d1b2" Command="{Binding OkCommand}" TextColor="White" HorizontalOptions="FillAndExpand"></Button>
+            <Button Text="Setter" BackgroundColor="#ff7f00" Command="{Binding SetterCommand}" TextColor="White" HorizontalOptions="FillAndExpand"></Button>
+            <Button Text="Delete" BackgroundColor="Red" Command="{Binding DeleteCommand}" TextColor="White" HorizontalOptions="FillAndExpand"></Button>
+        </StackLayout>
+
+    </StackLayout>
+</ContentPage>

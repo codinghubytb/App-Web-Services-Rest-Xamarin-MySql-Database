@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:AppApi.ViewModels"  
+             xmlns:model="clr-namespace:AppApi.Models" x:DataType="local:HomeApiViewModel"
+             x:Class="AppApi.Views.HomeApiPage"
+             Shell.NavBarIsVisible="False">
+
+    <StackLayout Padding="20" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+        <StackLayout.Background>
+            <LinearGradientBrush EndPoint="0,1">
+                <GradientStop Color="White" Offset="0"/>
+                <GradientStop Color="#0adffd" Offset="1" />
+            </LinearGradientBrush>
+
+        </StackLayout.Background>
+
+        <Frame BackgroundColor="Transparent" />
+
+        <Label Text="Home Page" HorizontalOptions="CenterAndExpand" FontSize="30" FontAttributes="Italic" TextColor="Black"/>
+
+        <RefreshView Command="{Binding LoadDataCommand}" x:DataType="local:HomeApiViewModel" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Margin="0,30,0,0">
+            <StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+
+                    <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                        <Label Text="List Of Classroom !" HorizontalTextAlignment="Center" />
+                        <Label Text="(" HorizontalTextAlignment="Center" />
+                        <Label Text="{Binding NbClassList}" HorizontalTextAlignment="Center" />
+                        <Label Text=")" HorizontalTextAlignment="Center" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                        <Label Text="page :" HorizontalTextAlignment="Center" />
+                        <Label Text="{Binding Page}" HorizontalTextAlignment="Center" />
+                        <Label Text="/" HorizontalTextAlignment="Center" />
+                        <Label Text="{Binding NbPage}" HorizontalTextAlignment="Center" />
+                    </StackLayout>
+                </StackLayout>
+                
+                
+                <Button Text="New Class 👉" Command="{Binding CreateClassCommand}" FontSize="Small"
+                BackgroundColor="Gray" TextColor="White" CornerRadius="10" HorizontalOptions="FillAndExpand"/>
+
+                <CollectionView x:Name="ItemsListView"
+                ItemsSource="{Binding DataClassroom}"
+                SelectionMode="None" VerticalScrollBarVisibility="Always">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate >
+                            <StackLayout x:DataType="model:Classroom">
+                                <Frame CornerRadius="5" BackgroundColor="Transparent">
+
+                                    <Frame.Background>
+                                        <LinearGradientBrush EndPoint="0.8,3">
+                                            <GradientStop Color="White" Offset="0"/>
+                                            <GradientStop Color="White" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Frame.Background>
+
+                                    <StackLayout Orientation="Horizontal" >
+                                        <StackLayout >
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Class of " TextColor="Black" FontSize="20"/>
+                                                <Label Text="{Binding ClassroomName}" TextColor="Black" FontSize="20"/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Nb Person : " FontSize="Small"/>
+                                                <Label Text="{Binding ClassroomNbPerson}" FontSize="Small"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <Image Source="arrow_right.png" BackgroundColor="Transparent" WidthRequest="30" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand"/>
+                                    </StackLayout>
+
+                                </Frame>
+
+                                <Frame BackgroundColor="Transparent" Padding="0"/>
+
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                    NumberOfTapsRequired="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:HomeApiViewModel}}, Path=ClassroomTapped}"		
+                                    CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </RefreshView>
+
+        <Button Text="See more" Command="{Binding SeeMoreCommand}" IsVisible="{Binding SeeMoreVisible}" FontSize="Small" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" />
+    </StackLayout>
+
+</ContentPage>
